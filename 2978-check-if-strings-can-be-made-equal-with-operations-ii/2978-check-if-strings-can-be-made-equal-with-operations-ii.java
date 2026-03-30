@@ -1,25 +1,22 @@
 class Solution {
     public boolean checkStrings(String s1, String s2) {
-        List<Character> e1=new ArrayList<>();
-        List<Character> e2=new ArrayList<>();
-        for(int i=0;i<s1.length();i+=2){
-           e1.add(s1.charAt(i));
-           e2.add(s2.charAt(i));
+        int[] even1 = new int[26];
+        int[] even2 = new int[26];
+        int[] odd1 = new int[26];
+        int[] odd2 = new int[26];
+
+        for (int i = 0; i < s1.length(); i++) {
+            char c1 = s1.charAt(i);
+            char c2 = s2.charAt(i);
+            if (i % 2 == 0) {
+                even1[c1 - 'a']++;
+                even2[c2 - 'a']++;
+            } else {
+                odd1[c1 - 'a']++;
+                odd2[c2 - 'a']++;
+            }
         }
-        List<Character> o2=new ArrayList<>();
-        List<Character> o1=new ArrayList<>();
-        for(int i=1;i<s1.length();i+=2){
-            o1.add(s1.charAt(i));
-            o2.add(s2.charAt(i));        
-        }
-        call(e1);
-        call(e2);
-        call(o1);
-        call(o2);
-        return e1.equals(e2) && o1.equals(o2);
-    }
-    public static void call(List<Character> ch){
-        Collections.sort(ch);
-        // return ch;
+
+        return Arrays.equals(even1, even2) && Arrays.equals(odd1, odd2);
     }
 }
